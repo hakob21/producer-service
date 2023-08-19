@@ -73,4 +73,7 @@ jobs:
 #    if: ${{ github.event.client_payload.branch == 'main' }}
     runs-on: ubuntu-latest
     steps:
-    - run: ./gradlew test --no-build-cache
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
+        arguments: ./gradlew test --no-build-cache
