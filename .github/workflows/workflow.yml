@@ -12,6 +12,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  repository_dispatch:
+    types: [ contract_requiring_verification_published ]
   workflow_dispatch:
     inputs:
       logLevel:
@@ -34,18 +36,18 @@ on:
 #      event_type:
 #        type: string
 #        required: true
-      pact_url:
-        type: string
-        required: true
-      sha:
-        type: string
-        required: true
-      branch:
-        type: string
-        required: true
-      message:
-        type: string
-        required: true
+#      pact_url:
+#        type: string
+#        required: true
+#      sha:
+#        type: string
+#        required: true
+#      branch:
+#        type: string
+#        required: true
+#      message:
+#        type: string
+#        required: true
 
 
 permissions:
@@ -67,3 +69,11 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
+
+  run_pact_verification_tests:
+    if: ${{ github.event.client_payload.branch == 'main' }}
+    runs-on: ubuntu-latest
+    steps:
+#      - env:
+#          MESSAGE: ${{ github.event.client_payload.message }}
+        run: ./gradlew test
