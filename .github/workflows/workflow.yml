@@ -68,12 +68,12 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
-        arguments: build
-  run_pact_verification_tests:
-#    if: ${{ github.event.client_payload.branch == 'main' }}
-    runs-on: ubuntu-latest
-    steps:
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-      with:
-        arguments: ./gradlew test --no-build-cache
+        arguments: build --no-build-cache
+#  run_pact_verification_tests:
+##    if: ${{ github.event.client_payload.branch == 'main' }}
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Build with Gradle
+#      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+#      with:
+#        arguments: ./gradlew test --no-build-cache
