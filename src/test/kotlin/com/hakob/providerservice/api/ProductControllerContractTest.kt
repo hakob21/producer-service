@@ -40,6 +40,7 @@ class ProductControllerContractTest(
     @BeforeEach
     fun setUp(context: PactVerificationContext) {
         context.target = HttpTestTarget("localhost", port)
+        System.setProperty("pact.verifier.publishResults", "true");
         println("")
 //        context.target(HttpTestTarget("localhost", port))
     }
