@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.ByteArrayOutputStream
 
 plugins {
     id("org.springframework.boot") version "3.1.2"
@@ -35,6 +36,37 @@ dependencies {
     implementation("au.com.dius.pact.provider:spring6:4.6.2")
 
 }
+
+val getGitBranch = {
+    val stdout = ByteArrayOutputStream()
+    exec {
+        commandLine("git", "rev-parse", "--abbrev-ref", "HEAD")
+        standardOutput = stdout
+    }
+    stdout.toString().trim()
+}
+
+val getGitHash = {
+    val stdout = ByteArrayOutputStream()
+    exec {
+        commandLine("git", "rev-parse", "--short", "HEAD")
+        standardOutput = stdout
+    }
+    stdout.toString().trim()
+}
+
+tasks {
+    named<Test>("test") {
+        useJUnitPlatform()
+
+        if (System.getProperty("pactPublishResults") == "true") {
+            systemProperty("pact.provider.version", getGitHash())
+            systemProperty("pact.provider.tag", getGitBranch())
+            systemProperty("pact.verifier.publishResults", "true")
+        }
+    }
+}
+
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
