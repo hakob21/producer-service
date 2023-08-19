@@ -73,4 +73,4 @@ jobs:
     if: ${{ github.event.client_payload.branch == 'main' }}
     runs-on: ubuntu-latest
     steps:
-        run: ./gradlew test
+    - run: ./gradlew test
