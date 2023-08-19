@@ -34,19 +34,18 @@ on:
       event_type:
         type: string
         required: true
-      client_payload:
-        pact_url:
-          type: string
-          required: true
-        sha:
-          type: string
-          required: true
-        branch:
-          type: string
-          required: true
-        message:
-          type: string
-          required: true
+      pact_url:
+        type: string
+        required: true
+      sha:
+        type: string
+        required: true
+      branch:
+        type: string
+        required: true
+      message:
+        type: string
+        required: true
 
 
 permissions:
