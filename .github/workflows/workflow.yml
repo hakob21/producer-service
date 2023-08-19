@@ -31,6 +31,19 @@ on:
         description: 'Environment to run tests against'
         type: environment
         required: false
+      pact_url:
+        type: string
+        required: true
+      sha:
+        type: string
+        required: true
+      branch:
+        type: string
+        required: true
+      message:
+        type: string
+        required: true
+
 
 permissions:
   contents: read
