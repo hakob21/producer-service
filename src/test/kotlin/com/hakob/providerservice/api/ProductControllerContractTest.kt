@@ -47,6 +47,7 @@ class ProductControllerContractTest(
     @TestTemplate
     @ExtendWith(PactVerificationInvocationContextProvider::class)
     fun verifyPact(context: PactVerificationContext, request: HttpRequest?) {
+        println("HKEEEEEEE IN VERIFY PACT")
 //        replaceAuthHeader(request)
         context.verifyInteraction()
     }
