@@ -59,11 +59,6 @@ tasks {
     named<Test>("test") {
         useJUnitPlatform()
 
-        if (System.getProperty("pactPublishResults") == "true") {
-            systemProperty("pact.provider.version", getGitHash())
-            systemProperty("pact.provider.tag", getGitBranch())
-            systemProperty("pact.verifier.publishResults", "true")
-        }
     }
 }
 
@@ -90,6 +85,13 @@ val sc = sourceSets.create("intTest") {
 }
 // creating a test type of task called integrationTest
 val integrationTest = task<Test>("intTest") {
+    if (System.getProperty("pactPublishResults") == "true") {
+        systemProperty("pact.provider.version", getGitHash())
+        systemProperty("pact.provider.tag", getGitBranch())
+        systemProperty("pact.verifier.publishResults", "true")
+    }
+
+
     description = "Runs integration tests."
     group = "verification"
 
