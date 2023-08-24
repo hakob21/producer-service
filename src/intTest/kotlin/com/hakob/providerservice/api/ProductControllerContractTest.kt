@@ -11,6 +11,7 @@ import com.hakob.providerservice.repository.ProductRepository
 import org.apache.hc.core5.http.HttpRequest
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.TestTemplate
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito
@@ -29,6 +30,7 @@ import java.util.*
 )
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Tag("pact-test")
 class ProductControllerContractTest(
 //    @MockBean
 //    private val productRepository: ProductRepository
