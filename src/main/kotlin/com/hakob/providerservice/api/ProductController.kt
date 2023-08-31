@@ -1,14 +1,11 @@
 package com.hakob.providerservice.api
 
 import com.hakob.providerservice.model.Product
-import com.hakob.providerservice.repository.ProductRepository
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class ProductController(
-    val productRepository: ProductRepository
-) {
+class ProductController {
 
     @GetMapping("/product")
     fun getProduct(): Product {
