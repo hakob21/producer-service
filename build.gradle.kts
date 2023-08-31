@@ -64,14 +64,14 @@ tasks.withType<Test> {
 }
 
 // create sourceSet
-val sc = sourceSets.create("intTest") {
+val sc = sourceSets.create("pactTest") {
     // compileClasspath and runtimeClasspath inherits depends on main's output, so that in the test of
     // integration test directory we can import classes from model or other packages of the main directory
     compileClasspath += sourceSets.main.get().output
     runtimeClasspath += sourceSets.main.get().output
 }
 // creating a test type of task called integrationTest
-val integrationTest = task<Test>("intTest") {
+val pactTest = task<Test>("pactTest") {
     if (System.getProperty("pactPublishResults") == "true") {
         systemProperty("pact.provider.version", getGitHash())
         systemProperty("pact.provider.tag", getGitBranch())
@@ -82,9 +82,9 @@ val integrationTest = task<Test>("intTest") {
     description = "Runs integration tests."
     group = "verification"
 
-    testClassesDirs += sourceSets["intTest"].output.classesDirs
+    testClassesDirs += sourceSets["pactTest"].output.classesDirs
     testClassesDirs += sourceSets["main"].output.classesDirs
-    classpath += sourceSets["intTest"].runtimeClasspath
+    classpath += sourceSets["pactTest"].runtimeClasspath
     classpath += sourceSets["main"].runtimeClasspath
     shouldRunAfter("test")
 
@@ -95,15 +95,15 @@ val integrationTest = task<Test>("intTest") {
     }
 }
 
-val intTestImplementation by configurations.getting {
+val pactTestImplementation by configurations.getting {
     extendsFrom(configurations.implementation.get())
 }
-val intTestRuntimeOnly by configurations.getting
+val pactTestRuntimeOnly by configurations.getting
 
-configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
+configurations["pactTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
 dependencies {
-    intTestImplementation("org.springframework.boot:spring-boot-starter-test")
-    intTestImplementation("org.springframework.boot:spring-boot-starter-web")
-    intTestImplementation("org.junit.jupiter:junit-jupiter:5.8.0-M1")
+    pactTestImplementation("org.springframework.boot:spring-boot-starter-test")
+    pactTestImplementation("org.springframework.boot:spring-boot-starter-web")
+    pactTestImplementation("org.junit.jupiter:junit-jupiter:5.8.0-M1")
 }
