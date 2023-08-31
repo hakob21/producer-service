@@ -33,22 +33,6 @@ on:
         description: 'Environment to run tests against'
         type: environment
         required: false
-#      event_type:
-#        type: string
-#        required: true
-#      pact_url:
-#        type: string
-#        required: true
-#      sha:
-#        type: string
-#        required: true
-#      branch:
-#        type: string
-#        required: true
-#      message:
-#        type: string
-#        required: true
-
 
 permissions:
   contents: read
@@ -67,9 +51,8 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build --no-build-cache
-  rerun_tests:
+  run-pact-provider-verification-tests:
     needs: build
-#    if: ${{ github.event_name == 'repository_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -78,16 +61,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
-      - name: Rerun tests with Gradle
+      - name: Run pact provider verification tests
         uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
         with:
           arguments: -DpactPublishResults=true intTest --rerun --no-build-cache
           cache-disabled: false
-#  run_pact_verification_tests:
-##    if: ${{ github.event.client_payload.branch == 'main' }}
-#    runs-on: ubuntu-latest
-#    steps:
-#    - name: Build with Gradle
-#      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-#      with:
-#        arguments: ./gradlew test --no-build-cache
