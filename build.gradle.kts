@@ -24,17 +24,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-//    testImplementation("au.com.dius.pact.consumer:kotlin:4.6.1")
-
-    // xz
-//    implementation("au.com.dius.pact:provider:4.6.1")
-
-    // will need these maybe
-//    testImplementation("au.com.dius.pact.provider:junit5:4.6.1")
-//    testImplementation("au.com.dius.pact.provider:spring:4.6.1")
-
     implementation("au.com.dius.pact.provider:spring6:4.6.2")
-
 }
 
 val getGitBranch = {
@@ -58,7 +48,6 @@ val getGitHash = {
 tasks {
     named<Test>("test") {
         useJUnitPlatform()
-
     }
 }
 
@@ -70,9 +59,7 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-// https://docs.gradle.org/current/userguide/java_testing.html#sec:configuring_java_integration_tests
 tasks.withType<Test> {
-//    enabled = false
     useJUnitPlatform()
 }
 
@@ -95,18 +82,8 @@ val integrationTest = task<Test>("intTest") {
     description = "Runs integration tests."
     group = "verification"
 
-    // the built test classes directories in "build" directory are added to the testClassesDirs of this newly created task
-    // the "sourceSets["intTest"].output.classesDirs" returns
-    // /Users/hakobharutyunyan/projects/pact/provider-service/build/classes/java/intTest
-    // /Users/hakobharutyunyan/projects/pact/provider-service/build/classes/kotlin/intTest
     testClassesDirs += sourceSets["intTest"].output.classesDirs
     testClassesDirs += sourceSets["main"].output.classesDirs
-
-    // the compiled jars of dependencies (libraries) and the following directories are added to the classpath
-    // of the newly created integration test task
-    // /Users/hakobharutyunyan/projects/pact/provider-service/build/classes/java/intTest
-    // /Users/hakobharutyunyan/projects/pact/provider-service/build/classes/kotlin/intTest
-    // /Users/hakobharutyunyan/projects/pact/provider-service/build/resources/intTest
     classpath += sourceSets["intTest"].runtimeClasspath
     classpath += sourceSets["main"].runtimeClasspath
     shouldRunAfter("test")
@@ -117,10 +94,7 @@ val integrationTest = task<Test>("intTest") {
         events("passed")
     }
 }
-//tasks.check { dependsOn(integrationTest) }
 
-// we extend from the "implementation" so that we can use "intTestImplementation"
-// below this to define dependencies for the new source set
 val intTestImplementation by configurations.getting {
     extendsFrom(configurations.implementation.get())
 }
@@ -128,32 +102,8 @@ val intTestRuntimeOnly by configurations.getting
 
 configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
-// for some reason according to that tutorial we need to include dependencies for this newly created source set
-// at n26 we don't do this
 dependencies {
     intTestImplementation("org.springframework.boot:spring-boot-starter-test")
     intTestImplementation("org.springframework.boot:spring-boot-starter-web")
     intTestImplementation("org.junit.jupiter:junit-jupiter:5.8.0-M1")
-//    intTestRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-
-tasks.register("printSourceSetInformation") {
-    doLast {
-//        sourceSets["main"].runtimeClasspath.forEach { println(it) }
-//        sourceSets["main"].compileClasspath.forEach { println(it) }
-
-        sourceSets["test"].runtimeClasspath.forEach { println(it) }
-//        sourceSets["intTest"].runtimeClasspath.forEach { println(it) }
-//        sourceSets["main"].output.classesDirs.forEach { println(it) }
-//        sourceSets.forEach { srcSet ->
-//            println("[${srcSet.name}]")
-//            println("-->Source directories: ${srcSet.allJava.srcDirs}")
-//            println("-->Output directories: ${srcSet.output.classesDirs.files}")
-//            println()
-//        }
-//        project.plugins.forEach {
-//            println(it)
-//        }
-    }
 }
