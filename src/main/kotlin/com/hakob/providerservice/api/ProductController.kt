@@ -9,6 +9,6 @@ class ProductController {
 
     @GetMapping("/product")
     fun getProduct(): Product {
-        return Product("product1")
+        return Product()
     }
 }
