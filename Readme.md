@@ -30,7 +30,25 @@
 9. Commit and push to the main branch
 10. After the workflow with `run-pact-provider-verification-tests` finishes, you can see the `Last verified` field in pact broker is green
 
+# Important
+Currently, the provider verification job fails on every run, because while playing around with Pact, a breaking contract was published
+and somehow got stuck in the broker. And the job outputs
+```
+ProductControllerContractTest > verifyPact(PactVerificationContext, HttpRequest) > Pact between consumer-service (f6050d9) and provider-service - get all products FAILED
+    java.lang.AssertionError at ProductControllerContractTest.kt:40
+
+ProductControllerContractTest > verifyPact(PactVerificationContext, HttpRequest) > Pact between consumer-service (a8ef720) and provider-service - get all products PASSED
+```
+So for one version of contract verification always fails, but for the latest version currently it passes and published the latest result.
+It's still possible to play around and everything should work as expected, except the provider job failing (but again, on the broker side everything is as expected).
+Will need to investigate how this bad contract got stuck and remove it from the broker.
+
 ### Reference Documentation
+running provider verification from local machine and publish the results
+```
+./gradlew pactTest 
+```
+
 you can run `can-i-deploy` command from the CLI broker client. Replace the hashcode next to `-e` argument with the commit hash code you want to check
 ```
 ./pact-broker can-i-deploy \
