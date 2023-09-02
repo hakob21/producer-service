@@ -6,6 +6,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.2"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
+    id("au.com.dius.pact") version "4.6.2"
     java
 }
 group = "com.hakob"
@@ -106,4 +107,22 @@ dependencies {
     pactTestImplementation("org.springframework.boot:spring-boot-starter-test")
     pactTestImplementation("org.springframework.boot:spring-boot-starter-web")
     pactTestImplementation("org.junit.jupiter:junit-jupiter:5.8.0-M1")
+}
+
+
+pact {
+    broker {
+        pactBrokerUrl = "http://16.171.86.61/"
+
+        // To use basic auth
+//        pactBrokerUsername = '<USERNAME>'
+//        pactBrokerPassword = '<PASSWORD>'
+
+        // OR to use a bearer token
+//        pactBrokerToken = '<TOKEN>'
+
+        // Customise the authentication header from the default `Authorization`
+//        pactBrokerAuthenticationHeader = 'my-auth-header'
+    }
+
 }
