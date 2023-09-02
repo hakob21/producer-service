@@ -67,7 +67,7 @@ jobs:
           arguments: -DpactPublishResults=true pactTest --no-build-cache
           cache-disabled: false
   run-pact-can-i-deploy:
-    needs: build
+    needs: run-pact-provider-verification-tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
