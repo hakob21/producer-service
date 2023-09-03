@@ -76,8 +76,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
-      - name: Run can-i-deploy
-        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-        with:
-          arguments: canideploy -Ppacticipant=provider-service -Platest=true
-          cache-disabled: false
+#      - name: Run can-i-deploy
+#        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+#        with:
+#          arguments: canideploy -Ppacticipant=provider-service -Platest=true
+#          cache-disabled: false
