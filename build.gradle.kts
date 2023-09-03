@@ -73,7 +73,7 @@ val sc = sourceSets.create("pactTest") {
 }
 // creating a test type of task called integrationTest
 val pactTest = task<Test>("pactTest") {
-    println("Hkeeeee $getGitHash()")
+    println("Hkeeeee ${getGitHash()}")
     if (System.getProperty("pactPublishResults") == "true") {
         systemProperty("pact.provider.version", getGitHash())
         systemProperty("pact.provider.tag", getGitBranch())
