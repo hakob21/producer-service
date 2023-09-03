@@ -113,7 +113,8 @@ dependencies {
 pact {
     broker {
         pactBrokerUrl = "http://16.171.86.61/"
-
+        retryCountWhileUnknown = 3
+        retryWhileUnknownInterval = 100
         // To use basic auth
 //        pactBrokerUsername = '<USERNAME>'
 //        pactBrokerPassword = '<PASSWORD>'
